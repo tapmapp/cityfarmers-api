@@ -24,7 +24,12 @@ var app = express();
 
 // SOCKET LIBRARY
 var server = require('http').createServer(app).listen(process.env.SOCKET_PORT);
-var io = require('socket.io').listen(server);
+var io = require('socket.io')({ transports  : [ 'websocket' ]}).listen(server);
+
+// Heroku won't actually allow us to use WebSockets
+// so we have to setup polling instead.
+// https://devcenter.heroku.com/articles/using-socket-io-with-node-js-on-heroku
+
 app.set('socketio', io);
 
 app.use(morgan('dev'));
@@ -47,6 +52,9 @@ app.use((req, res, next) => {
     next();
 
 });
+
+
+
 
 // ROUTES
 app.use('/', home);

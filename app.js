@@ -23,9 +23,12 @@ var farm = require('./routes/farm');
 
 var app = express();
 
+// APP LISTENING
+var server = app.listen(PORT);
+console.log('listening: ' + server.address().port);
+
 // SOCKET LIBRARY
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+var io = require('socket.io').listen(server);
 app.set('socketio', io);
 
 app.use(morgan('dev'));
@@ -76,7 +79,3 @@ app.use((error, req, res, next) => {
     });
 
 });
-
-// APP LISTENING
-var listener = app.listen(PORT);
-console.log('listening: ' + listener.address().port);

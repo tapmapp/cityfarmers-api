@@ -22,11 +22,9 @@ var farmer = require('./routes/farmer');
 var farm = require('./routes/farm');
 
 var app = express();
-app.use((req, res) => res.sendFile(INDEX) ).listen(PORT, () => console.log(`Listening on ${ PORT }`));
+var server = app.use((req, res) => res.sendFile(INDEX) ).listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 // SOCKET LIBRARY
-
-var server = require('http').Server(app);
 var socket = require('socket.io');
 var io = socket(server);
 

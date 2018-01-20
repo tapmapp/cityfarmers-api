@@ -1,4 +1,5 @@
 var express = require('express');
+
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
@@ -12,7 +13,7 @@ process.env.SOCKET_PORT = config.SOCKET_PORT;
 
 // DATA BASE CONNECTION
 var mongoose = require('mongoose');
-mongoose.connect(config.databaseProd);
+mongoose.connect(config.database);
 
 // DEFINE ROUTES
 var home = require('./routes/home');
@@ -21,15 +22,10 @@ var farmer = require('./routes/farmer');
 var farm = require('./routes/farm');
 
 var app = express();
-var server = app.listen(8810)
+
+// SOCKET LIBRARY
+var server = app.listen(8810);
 var io = require('socket.io').listen(server);
-
-console.log('listening at: ' + app.get('port'));
-
-io.set('transports', ['xhr-polling']);
-io.set('polling duration', 10);
-
-
 app.set('socketio', io);
 
 app.use(morgan('dev'));
@@ -52,9 +48,6 @@ app.use((req, res, next) => {
     next();
 
 });
-
-
-
 
 // ROUTES
 app.use('/', home);
@@ -84,3 +77,7 @@ app.use((error, req, res, next) => {
 
 });
 
+// APP LISTENING
+app.listen(PORT, function() {
+    console.log('app listening at: ' + app.get('port'));
+});

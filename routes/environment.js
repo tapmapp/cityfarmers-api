@@ -14,7 +14,7 @@ router.post('/save', checkAuth, (req, res, next) => {
         // SOCKET INSTANCE
         var io = req.app.get('socketio');
         var socketFarmer = io.of('/' + req.body.farmerId);
-
+        
         socketFarmer.in(req.body.room).emit('platform-environment', { room: req.body.room, temperature: req.body.temperature, humidity: req.body.humidity });
 
         // PASSWORD MATCH

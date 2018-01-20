@@ -23,7 +23,7 @@ var farm = require('./routes/farm');
 var app = express();
 
 // SOCKET LIBRARY
-var server = require('http').createServer(app).listen(process.env.SOCKET_PORT);
+var server = require('http').createServer(app);
 var io = require('socket.io').listen(server);
 app.set('socketio', io);
 

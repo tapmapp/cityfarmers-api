@@ -22,6 +22,7 @@ var farmer = require('./routes/farmer');
 var farm = require('./routes/farm');
 
 var app = express();
+app.use((req, res) => res.sendFile(INDEX) ).listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 // SOCKET LIBRARY
 
@@ -86,6 +87,3 @@ app.use((error, req, res, next) => {
 
 });
 
-// APP LISTENING
-var listener = app.listen(PORT);
-console.log('app listening at: ' + listener.address().port);

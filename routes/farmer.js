@@ -73,6 +73,7 @@ router.post('/signup', (req, res, next) => {
 // FARMER LOGIN
 router.post('/login', (req, res, next) => {
 
+    console.log('login');
     var farmer = Farmer.schema.methods.find(req.body.email);
     farmer.then(farmer => {
 

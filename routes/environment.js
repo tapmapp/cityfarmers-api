@@ -9,17 +9,25 @@ router.post('/save', checkAuth, (req, res, next) => {
 
     // SAVE ENVIRONMENT
     var environment = Environment.schema.methods.save('cityFarmerId', req.body.temperature, req.body.humidity);
-    environment.then(function() {
+    environment.then(() => {
 
-        // EMIT TO CLIENT
-        io.emit('newEnvironment', { temperature: req.body.temperature, humidity: req.body.humidity });
-        res.end();
+        // SOCKET INSTANCE
+        var io = req.app.get('socketio');
+        var socketFarmer = io.of('/' + req.body.farmerId);
 
-    }, function(err) {
+        socketFarmer.in(req.body.room).emit('platform-environment', { room: req.body.room, temperature: req.body.temperature, humidity: req.body.humidity });
 
-        // RETURN FALSE IF ERROR
-        var json = JSON.stringify(false);
-        res.json(json);
+        // PASSWORD MATCH
+        res.status(200).json({
+            message: 'Environment saved!'
+        });
+
+    }).catch(err => {
+
+        // RETURN ERROR
+        res.status(400).json({
+            error: err
+        });
 
     });
 

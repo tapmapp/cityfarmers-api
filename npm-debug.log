@@ -7,7 +7,7 @@
 6 silly lifecycle Heroku@0.0.1~prebuild: no script for prebuild, continuing
 7 info lifecycle Heroku@0.0.1~build: Heroku@0.0.1
 8 verbose lifecycle Heroku@0.0.1~build: unsafe-perm in lifecycle true
-9 verbose lifecycle Heroku@0.0.1~build: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/froca/Desktop/city-farmers/api/node_modules/.bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.6/bin
+9 verbose lifecycle Heroku@0.0.1~build: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/froca/Desktop/city-farmers/api/node_modules/.bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 10 verbose lifecycle Heroku@0.0.1~build: CWD: /Users/froca/Desktop/city-farmers/api
 11 silly lifecycle Heroku@0.0.1~build: Args: [ '-c', 'webpack' ]
 12 silly lifecycle Heroku@0.0.1~build: Returned: code: 2  signal: null

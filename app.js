@@ -13,7 +13,7 @@ process.env.SOCKET_PORT = config.SOCKET_PORT;
 
 // DATA BASE CONNECTION
 var mongoose = require('mongoose');
-mongoose.connect(config.databaseProd);
+mongoose.connect(config.database);
 
 // DEFINE ROUTES
 var home = require('./routes/home');
@@ -22,19 +22,10 @@ var farmer = require('./routes/farmer');
 var farm = require('./routes/farm');
 
 var app = express();
-var server = app.use((req, res) => res.sendFile(INDEX) ).listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 // SOCKET LIBRARY
-var socket = require('socket.io');
-var io = socket(server);
-
-io.set('transports', ['websocket', 
-                  'flashsocket', 
-                  'htmlfile', 
-                  'xhr-polling', 
-                  'jsonp-polling', 
-                  'polling']);
-
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 app.set('socketio', io);
 
 app.use(morgan('dev'));
@@ -86,3 +77,6 @@ app.use((error, req, res, next) => {
 
 });
 
+// APP LISTENING
+var listener = app.listen(PORT);
+console.log('listening: ' + listener.address().port);

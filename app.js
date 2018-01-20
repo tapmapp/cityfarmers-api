@@ -1,50 +1,80 @@
 var express = require('express');
-var passport = require('passport');
 var session = require('express-session');
-
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
 var path = require('path');
-var PORT = process.env.PORT || 5000;
+
+var config = require('./config/env');
+
+var PORT = process.env.PORT || config.PORT;
+process.env.SECRET = config.SECRET;
+process.env.SOCKET_PORT = config.SOCKET_PORT;
 
 // DATA BASE CONNECTION
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/cityfarmersdb');
-
-require('./config/passport');
-
-var app = express();
-var server = require('http').createServer(app).listen(8810);
-var io = require('socket.io').listen(server);
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret:  'mysupersecret', resave: false, saveUninitialized: false }));
-app.use(express.static(path.join(__dirname, 'public' )));
-
-var socketFarmer = io.of('/myFarmerId');
-socketFarmer.on('connection', function(socket){
-
-    console.log('Client connected!');
-    
-    socket.on('environment', function(msg) {
-        console.log(msg);
-    });
-
-    socket.on('disconnect', function() {
-        console.log('Client disconnect!');
-    });
-
-});
+mongoose.connect(config.database);
 
 // DEFINE ROUTES
 var home = require('./routes/home');
 var environment = require('./routes/environment');
 var farmer = require('./routes/farmer');
+var farm = require('./routes/farm');
+
+var app = express();
+
+// SOCKET LIBRARY
+var server = require('http').createServer(app).listen(process.env.SOCKET_PORT);
+var io = require('socket.io').listen(server);
+app.set('socketio', io);
+
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+
+app.use((req, res, next) => {
+
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+
+    if(req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
+
+    next();
+
+});
 
 // ROUTES
 app.use('/', home);
 app.use('/environment', environment);
 app.use('/farmer', farmer);
+app.use('/farm', farm);
+
+app.get('/favicon.ico', function(req, res) {
+    res.status(204);
+});
+
+app.use((req, res, next) => {
+    var error = new Error('Not found');
+    error.status = 404;
+    next(error);
+});
+
+// ERROR HANDLER
+app.use((error, req, res, next) => {
+
+    res.status(error.status || 500);
+    res.json({
+        error: {
+            message: error.message
+        }
+    });
+
+});
 
 // APP LISTENING
 app.listen(PORT);

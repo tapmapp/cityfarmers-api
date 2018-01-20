@@ -3,7 +3,7 @@ var router = express.Router();
 
 // GET ALL BRANDS
 router.get('/', function(req, res, next) {
-    res.render(path.join(__dirname, 'views') + '/index.hbs');
+    res.end();
 });
 
 module.exports = router;

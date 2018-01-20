@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var checkAuth = require('../middleware/check.auth');
 
 var Environment = require('../models/environment');
 
-// GET ALL BRANDS
-router.get('/save', function(req, res, next) {
+// SAVE ENVIRONMENT VALUES
+router.post('/save', checkAuth, (req, res, next) => {
 
     // SAVE ENVIRONMENT
     var environment = Environment.schema.methods.save('cityFarmerId', req.body.temperature, req.body.humidity);
@@ -16,12 +17,16 @@ router.get('/save', function(req, res, next) {
 
     }, function(err) {
 
-    // RETURN FALSE IF ERROR
-    var json = JSON.stringify(false);
-    res.json(json);
+        // RETURN FALSE IF ERROR
+        var json = JSON.stringify(false);
+        res.json(json);
 
     });
 
+});
+
+router.get('/test', checkAuth, (req, res, next) => {
+    res.send('works!');
 });
 
 module.exports = router;

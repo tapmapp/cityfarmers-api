@@ -10,22 +10,23 @@ var farmSchema = new mongoose.Schema({
 var Farm = mongoose.model('Farm', farmSchema);
 
 // CREATE FARM
-farmSchema.methods.save = function (farmerId, name) {
+farmSchema.methods.save = function (farmerId, farmName) {
+
+    var id = mongoose.Types.ObjectId();
 
     var farm = new Farm({
+        _id: id,
         farmer: farmerId,
-        name
+        name: farmName
     });
 
     return farm.save();
 
 }
 
-// GET FARM
-farmSchema.methods.get = function (farmerId) {
-
-    return Farm.findById(farmerId);
-
+// GET FARMS
+farmSchema.methods.getFarms = function (farmerId) {
+    return Farm.find({ farmer: farmerId }).exec();
 }
 
 module.exports = Farm;

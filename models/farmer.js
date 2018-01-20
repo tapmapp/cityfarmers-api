@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require('bcrypt-as-promised');
 
 var Farm = require('./farm');
 
 var farmerSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    farms: { type: [ mongoose.Schema.Types.ObjectId ], ref: "Farm", required: true },
-    password: { type: String, required: true},
+    email: { type: String, required: true, unique: true, match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/ },
+    farm: { type: [ mongoose.Schema.Types.ObjectId ], ref: "Farm" },
+    password: { type: String, required: true },
     state: { type: Boolean, required: true }
 });
 
@@ -15,39 +15,42 @@ var Farmer = mongoose.model('Farmer', farmerSchema);
 
 // CREATE ENCRYPTED PASSWORD
 farmerSchema.methods.encryptPassword = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
+    return bcrypt.hash(password, 10);
 }
 
 // CHECK IS PASSWORD MATCH
-farmerSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
+farmerSchema.methods.validPassword = function(password, farmerPassword) {
+    return bcrypt.compare(password, farmerPassword);
+}
+
+// FIND FARMER BY EMAIL
+farmerSchema.methods.find = function(email) {
+    return Farmer.findOne({ email: email }).exec();
 }
 
 // CREATE FARMER
-farmerSchema.methods.save = function (farmerName, farmerEmail) {
+farmerSchema.methods.save = function (farmerName, farmerEmail, password) {
 
-    var farmer = new Farm({
+    var farmer = new Farmer({
         name: farmerName,
         email: farmerEmail,
-        state: true
+        farm: [],
+        password: password,
+        state: false
     });
 
     return farmer.save();
 
 }
 
-// GET FARMER
-farmerSchema.methods.get = function (farmerId) {
-
-    return Farm.findById(farmerId);
-
+// ADD FARM TO FARMER
+farmerSchema.methods.addFarm = function (farmerId, farmId) {
+    return Farmer.update({ _id: farmerId }, { $push: { farm: farmId } });
 }
 
-// CONNECT FARMER
-farmerSchema.methods.connectFarmer = function (farmerEmail, farmerPassword) {
-
-
-
+// DELETE FARMER
+farmerSchema.methods.delete = function(farmerId) {
+    return Farmer.remove({ _id: farmerId}).exec();
 }
 
 module.exports = Farmer;

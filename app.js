@@ -13,7 +13,7 @@ process.env.SOCKET_PORT = config.SOCKET_PORT;
 
 // DATA BASE CONNECTION
 var mongoose = require('mongoose');
-mongoose.connect(config.database);
+mongoose.connect(config.databaseProd);
 
 // DEFINE ROUTES
 var home = require('./routes/home');

@@ -21,10 +21,10 @@ var farmer = require('./routes/farmer');
 var farm = require('./routes/farm');
 
 var app = express();
-
-// SOCKET LIBRARY
-var server = app.listen(process.env.SOCKET_PORT);
+var server = app.listen(8810)
 var io = require('socket.io').listen(server);
+
+console.log('listening at: ' + app.get('port'));
 
 io.set('transports', ['xhr-polling']);
 io.set('polling duration', 10);
@@ -84,7 +84,3 @@ app.use((error, req, res, next) => {
 
 });
 
-// APP LISTENING
-app.listen(function () {
-  console.log('Express server listening on port ' + app.get('port'))
-})

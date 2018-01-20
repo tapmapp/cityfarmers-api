@@ -27,7 +27,8 @@ app.use((req, res) => res.sendFile(INDEX) ).listen(PORT, () => console.log(`List
 // SOCKET LIBRARY
 
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+var socket = require('socket.io');
+var io = socket(server);
 
 io.set('transports', ['websocket', 
                   'flashsocket', 

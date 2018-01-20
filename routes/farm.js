@@ -3,7 +3,6 @@ var router = express.Router();
 var checkAuth = require('../middleware/check.auth');
 
 // SOCKET INITIALIZATION MODULE
-var io = express().get('socketio');
 var socket = require('../socket/socket');
 var jwt = require('jsonwebtoken');
 

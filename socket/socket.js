@@ -16,7 +16,7 @@ exports.initialize = function(io, farmerId, farms) {
         farmers.push(farmerId.toString());
 
         var socketFarmer = io.of('/' + farmerId.toString());
-
+        
         socketFarmer.on('connection', function(socket) {
             
             // JOIN ROOM

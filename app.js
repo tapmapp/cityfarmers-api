@@ -24,8 +24,8 @@ var farm = require('./routes/farm');
 var app = express();
 
 // SOCKET LIBRARY
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+var server = require('http').createServer(app);
+var io = require('socket.io').listen(server);
 app.set('socketio', io);
 
 app.use(morgan('dev'));
@@ -78,6 +78,5 @@ app.use((error, req, res, next) => {
 });
 
 // APP LISTENING
-app.listen(PORT, function() {
-    console.log('app listening at: ' + app.get('port'));
-});
+var listener = app.listen(PORT);
+console.log(listener.address().port);

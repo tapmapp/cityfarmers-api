@@ -24,8 +24,8 @@ var farm = require('./routes/farm');
 var app = express();
 
 // SOCKET LIBRARY
-var server = app.listen(8810);
-var io = require('socket.io').listen(server);
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 app.set('socketio', io);
 
 app.use(morgan('dev'));

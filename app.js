@@ -27,6 +27,14 @@ var app = express();
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+
+io.set('transports', ['websocket', 
+                  'flashsocket', 
+                  'htmlfile', 
+                  'xhr-polling', 
+                  'jsonp-polling', 
+                  'polling']);
+
 app.set('socketio', io);
 
 app.use(morgan('dev'));

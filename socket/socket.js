@@ -31,14 +31,12 @@ exports.initialize = function(io, farmerId, farms) {
                 socket.leave(room); 
             })
 
-            socket.on('environment', function(msg) {
-                console.log('ENV: ');
-                console.log(msg);
-                socketFarmer.in(msg.room).emit('platform-environment', msg);
+            socket.on('environment', function(data) {
+                socketFarmer.in(data.room).emit('platform-environment', data);
             });
             
-            socket.on('switch-light', function(msg) {
-                socketFarmer.emit('rasp-switch-light', msg);
+            socket.on('switch-light', function(data) {
+                socketFarmer.in(data.room).emit('rasp-switch-light', data);
             });
 
             socket.on('disconnect', function() {

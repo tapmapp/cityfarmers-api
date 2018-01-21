@@ -1,5 +1,5 @@
 {
-  "name": "Heroku",
+  "name": "cityfarmers-api",
   "version": "0.0.1",
   "description": "Heroku Starter Kit",
   "engines": {

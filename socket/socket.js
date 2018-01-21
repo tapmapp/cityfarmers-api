@@ -36,7 +36,7 @@ exports.initialize = function(io, farmerId, farms) {
             });
             
             socket.on('switch-light', function(data) {
-                socketFarmer.in(data.room).emit('rasp-switch-light', data);
+                socketFarmer.in('hhhh').emit('rasp-switch-light', data);
             });
 
             socket.on('disconnect', function() {

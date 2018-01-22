@@ -73,7 +73,6 @@ router.post('/signup', (req, res, next) => {
 // FARMER LOGIN
 router.post('/login', (req, res, next) => {
 
-    console.log('login');
     var farmer = Farmer.schema.methods.find(req.body.email);
     farmer.then(farmer => {
 
@@ -129,6 +128,31 @@ router.post('/login', (req, res, next) => {
         });
 
     }).catch(err => {
+
+        // RETURN ERROR
+        res.status(500).json({
+            message: 'Auth failed'
+        });
+
+    });
+
+});
+
+router.post('/farmer', checkAuth, (req, res, next) => {
+
+    var farmer = Farmer.schema.methods.findById(req.body.farmerId);
+    farmer.then(farmer => {
+
+        if(farmer == null) {
+            return res.status(401).json({
+                message: 'Auth failed'
+            });
+        }
+
+        // PASSWORD MATCH
+        res.status(200).json(farmer);
+
+    }).cacth(err => {
 
         // RETURN ERROR
         res.status(500).json({

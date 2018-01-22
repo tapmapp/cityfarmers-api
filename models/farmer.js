@@ -8,7 +8,10 @@ var farmerSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true, match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/ },
     farm: { type: [ mongoose.Schema.Types.ObjectId ], ref: "Farm" },
     password: { type: String, required: true },
-    state: { type: Boolean, required: true }
+    city: { type: String },
+    country: { type: String },
+    state: { type: Boolean, required: true, default: false },
+    created: { type: Date, required: true, default: Date.now }
 });
 
 var Farmer = mongoose.model('Farmer', farmerSchema);
@@ -28,6 +31,11 @@ farmerSchema.methods.find = function(email) {
     return Farmer.findOne({ email: email }).exec();
 }
 
+// FIND FARMER BY ID
+farmerSchema.methods.findById = function(id) {
+    return Farmer.findOne({ _id: id }).exec();
+}
+
 // CREATE FARMER
 farmerSchema.methods.save = function (farmerName, farmerEmail, password) {
 
@@ -35,6 +43,8 @@ farmerSchema.methods.save = function (farmerName, farmerEmail, password) {
         name: farmerName,
         email: farmerEmail,
         farm: [],
+        city: '',
+        country: '',
         password: password,
         state: false
     });

@@ -119,4 +119,26 @@ router.post('/farms', checkAuth, (req, res, next) => {
 
 });
 
+// SET FARM TEMPERATURE
+router.post('/set-temperature', checkAuth, (req, res, next) => {
+
+    var newTemperature = Farm.schema.methods.setTemperature(req.body.farmId, req.body.temperature);
+    newTemperature.then(() => {
+
+        // FARMER FARMS
+        res.status(201).json({
+            message: 'Temperature set at ' + req.body.temperature
+        });
+
+    }).catch(err => {
+
+        // RETURN ERROR
+        res.status(500).json({
+            error: err
+        });
+
+    });
+
+});
+
 module.exports = router;

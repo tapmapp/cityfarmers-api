@@ -139,7 +139,7 @@ router.post('/login', (req, res, next) => {
 });
 
 router.post('/farmer', checkAuth, (req, res, next) => {
-
+    
     var farmer = Farmer.schema.methods.findById(req.body.farmerId);
     farmer.then(farmer => {
 
@@ -152,7 +152,7 @@ router.post('/farmer', checkAuth, (req, res, next) => {
         // PASSWORD MATCH
         res.status(200).json(farmer);
 
-    }).cacth(err => {
+    }).catch(err => {
 
         // RETURN ERROR
         res.status(500).json({

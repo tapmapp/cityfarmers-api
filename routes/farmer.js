@@ -106,6 +106,7 @@ router.post('/login', (req, res, next) => {
                 res.status(200).json({
                     message: 'Auth successful',
                     farmerId: farmer._id,
+                    farmerName: farmer.name,
                     token: token
                 });
 

@@ -10,6 +10,7 @@ var farmerSchema = new mongoose.Schema({
     password: { type: String, required: true },
     city: { type: String },
     country: { type: String },
+    img: { type: String },
     state: { type: Boolean, required: true, default: false },
     created: { type: Date, required: true, default: Date.now }
 });

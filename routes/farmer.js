@@ -138,7 +138,7 @@ router.post('/login', (req, res, next) => {
 
 });
 
-router.get('/:farmerId', (req, res, next) => {
+router.get('/:farmerId', checkAuth, (req, res, next) => {
     
     var farmer = Farmer.schema.methods.findById(req.params.farmerId);
     farmer.then(farmer => {

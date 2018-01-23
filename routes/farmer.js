@@ -77,7 +77,7 @@ router.post('/login', (req, res, next) => {
     farmer.then(farmer => {
 
         if(farmer == null) {
-            res.status(400).json({
+            res.status(401).send({
                 message: 'Auth failed!'
             });
         }

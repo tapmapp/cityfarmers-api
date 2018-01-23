@@ -19,7 +19,7 @@ router.post('/signup', (req, res, next) => {
         if(farmer != null) {
 
             // FARMER EXISTS
-            return res.status(200).json({
+            return res.status(409).json({
                 message: 'Farmer exists'
             });
 
@@ -77,8 +77,9 @@ router.post('/login', (req, res, next) => {
     farmer.then(farmer => {
 
         if(farmer == null) {
-            return res.status(401).json({
-                message: 'Auth failed'
+            return res.status(200).send({
+                status: '401',
+                message: 'Auth failed!'
             });
         }
 
@@ -103,6 +104,7 @@ router.post('/login', (req, res, next) => {
 
                 // PASSWORD MATCH
                 res.status(200).json({
+                    status: '200',
                     message: 'Auth successful',
                     farmerId: farmer._id,
                     farmerName: farmer.name,

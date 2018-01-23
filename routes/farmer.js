@@ -77,8 +77,8 @@ router.post('/login', (req, res, next) => {
     farmer.then(farmer => {
 
         if(farmer == null) {
-            return res.status(401).json({
-                message: 'Auth failed'
+            res.status(401).json({
+                message: 'Auth failed!'
             });
         }
 
@@ -130,7 +130,7 @@ router.post('/login', (req, res, next) => {
     }).catch(err => {
 
         // RETURN ERROR
-        res.status(500).json({
+        res.status(401).json({
             message: 'Auth failed'
         });
 

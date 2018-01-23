@@ -19,7 +19,7 @@ router.post('/signup', (req, res, next) => {
         if(farmer != null) {
 
             // FARMER EXISTS
-            return res.status(409).json({
+            return res.status(200).json({
                 message: 'Farmer exists'
             });
 

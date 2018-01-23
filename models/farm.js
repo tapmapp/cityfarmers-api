@@ -45,9 +45,15 @@ farmSchema.methods.getFarms = function (farmerId) {
 }
 
 
-// CREATE FARM
+// SET FARM TEMPERATURE
 farmSchema.methods.setTemperature = function (farmId, temperature) {
     return Farm.update({ _id: farmId }, { $set: { temperature: temperature } });
 }
+
+// SET FARM WATERING
+farmSchema.methods.setWatering = function (farmId, watering) {
+    return Farm.update({ _id: farmId }, { $set: { watering: watering } });
+}
+
 
 module.exports = Farm;

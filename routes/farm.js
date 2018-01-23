@@ -127,7 +127,29 @@ router.post('/set-temperature', checkAuth, (req, res, next) => {
 
         // FARMER FARMS
         res.status(201).json({
-            message: 'Temperature set at ' + req.body.temperature
+            message: 'Temperature set at ' + req.body.temperature + ' ºC'
+        });
+
+    }).catch(err => {
+
+        // RETURN ERROR
+        res.status(500).json({
+            error: err
+        });
+
+    });
+
+});
+
+// SET FARM WATERING
+router.post('/set-watering', checkAuth, (req, res, next) => {
+
+    var newWatering = Farm.schema.methods.setWatering(req.body.farmId, req.body.watering);
+    newWatering.then(() => {
+
+        // FARMER FARMS
+        res.status(201).json({
+            message: 'Watering set at ' + req.body.watering + ' mins'
         });
 
     }).catch(err => {

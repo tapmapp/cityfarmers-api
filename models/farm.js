@@ -47,7 +47,7 @@ farmSchema.methods.getFarms = function (farmerId) {
 
 // SET FARM TEMPERATURE
 farmSchema.methods.setTemperature = function (farmId, temperature) {
-    return Farm.update({ _id: farmId }, { $set: { temperature: temperature } });
+    return Farm.update({ _id: farmId }, { $set: { temperatureVent: temperature } });
 }
 
 // SET FARM WATERING

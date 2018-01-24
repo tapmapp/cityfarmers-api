@@ -68,7 +68,7 @@ router.post('/login', (req, res, next) => {
 // CREATE FARM
 router.post('/create-farm', checkAuth, (req, res, next) => {
 
-    var farm = Farm.schema.methods.save(req.body.farmerId, req.body.farmName);
+    var farm = Farm.schema.methods.save(req.body.farmerId, req.body.farmName, req.body.farmCity, req.body.farmCountry);
     farm.then(farm => {
 
         var updateFarmer = Farmer.schema.methods.addFarm(farm.farmer, farm._id);

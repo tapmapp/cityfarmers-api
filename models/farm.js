@@ -18,7 +18,7 @@ var farmSchema = new mongoose.Schema({
 var Farm = mongoose.model('Farm', farmSchema);
 
 // CREATE FARM
-farmSchema.methods.save = function (farmerId, farmName, farmSystem) {
+farmSchema.methods.save = function (farmerId, farmName, farmCity, farmCountry) {
 
     var id = mongoose.Types.ObjectId();
 
@@ -26,9 +26,9 @@ farmSchema.methods.save = function (farmerId, farmName, farmSystem) {
         _id: id,
         farmer: farmerId,
         name: farmName,
-        system: farmSystem,
-        city: '',
-        country: '',
+        system: 'Aeroponic',
+        city: farmCity,
+        country: farmCountry,
         temperatureVent: 24,
         watering: 5,
         lightingOn: '08:00',

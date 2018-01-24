@@ -8,7 +8,7 @@ var farmSchema = new mongoose.Schema({
     system: { type: String, required: true, default: 'Aeroponics' },
     city: { type: String },
     country: { type: String },
-    temperature: { type: Number, required: true, default: 24},
+    temperatureVent: { type: Number, required: true, default: 24 },
     watering: {type: Number, required: true, default: 5 },
     lightingOn: { type: String, required: true, default: '08:00' },
     lightingOff: { type: String, required: true, default: '22:00' },
@@ -29,7 +29,7 @@ farmSchema.methods.save = function (farmerId, farmName, farmSystem) {
         system: farmSystem,
         city: '',
         country: '',
-        temperature: 24,
+        temperatureVent: 24,
         watering: 5,
         lightingOn: '08:00',
         lightingOff: '22:00'

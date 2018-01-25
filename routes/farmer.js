@@ -77,7 +77,7 @@ router.post('/login', (req, res, next) => {
     farmer.then(farmer => {
 
         if(farmer == null) {
-            return res.status(401).send({
+            return res.status(401).json({
                 message: 'Auth failed!'
             });
         }
@@ -155,7 +155,7 @@ router.get('/:farmerId', checkAuth, (req, res, next) => {
     }).catch(err => {
 
         // RETURN ERROR
-        res.status(500).json({
+        res.status(401).json({
             message: 'Auth failed'
         });
 
@@ -177,7 +177,7 @@ router.delete('/:farmerId', (req, res, next) => {
     }).cacth(err => {
 
         // RETURN ERROR
-        res.status(500).json({
+        res.status(401).json({
             error: err
         });
 

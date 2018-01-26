@@ -20,7 +20,7 @@ var home = require('./routes/home');
 var environment = require('./routes/environment');
 var farmer = require('./routes/farmer');
 var farm = require('./routes/farm');
-var note = require('./routes/note');
+//var note = require('./routes/note');
 
 var app = express();
 
@@ -57,7 +57,7 @@ app.use('/', home);
 app.use('/environment', environment);
 app.use('/farmer', farmer);
 app.use('/farm', farm);
-app.use('/notes', note);
+//app.use('/notes', note);
 
 app.get('/favicon.ico', function(req, res) {
     res.status(204);

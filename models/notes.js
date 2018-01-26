@@ -14,6 +14,11 @@ var noteSchema = new mongoose.Schema({
 
 var Note = mongoose.model('Note', noteSchema);
 
+// GET NOTES
+noteSchema.methods.get = function(farmId) {
+    return Note.find({ farm: farmId }).exec();
+}
+
 // SAVE NOTE
 noteSchema.methods.save = function(farmerId, farmId, noteTitle, noteContent, noteImg) {
 
@@ -25,6 +30,8 @@ noteSchema.methods.save = function(farmerId, farmId, noteTitle, noteContent, not
         img: noteImg,
         created: new Date()
     });
+
+    return note.save();
 
 }
 

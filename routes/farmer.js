@@ -10,6 +10,17 @@ var jwt = require('jsonwebtoken');
 var Farmer = require('../models/farmer');
 var Farm = require('../models/farm');
 
+
+// FARMER SIGN UP
+router.get('/', checkAuth, (req, res, next) => {
+
+    // FARMER EXISTS
+    return res.status(200).json({
+        message: 'Welcome!'
+    });
+
+});
+
 // FARMER SIGN UP
 router.post('/signup', (req, res, next) => {
 

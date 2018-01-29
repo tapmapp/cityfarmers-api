@@ -122,6 +122,22 @@ router.post('/farms', checkAuth, (req, res, next) => {
 // SET FAM
 router.post('/set-lighting', checkAuth, (req, res, next) => {
 
+    var newLighting = Farm.schema.methods.setLighting(req.body.farmId, req.body.lightingOn, req.body.lightingOff);
+    newLighting.then(() => {
+
+        res.status(201).json({
+            message: 'New lighting configuration saved'
+        })
+
+    }).catch(err => {
+
+        // RETURN ERROR
+        res.status(500).json({
+            error: err
+        });
+
+    });
+
 });
 
 // SET FARM TEMPERATURE

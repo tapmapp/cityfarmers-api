@@ -44,6 +44,10 @@ farmSchema.methods.getFarms = function (farmerId) {
     return Farm.find({ farmer: farmerId }).exec();
 }
 
+// SET FARM LIGHTING
+farmSchema.methods.setLighting = function (farmId, lightingOn, lightingOff) {
+    return Farm.update({ _id: farmId }, { $set: { lightingOn: lightingOn, lightingOff: lightingOff } });
+}
 
 // SET FARM TEMPERATURE
 farmSchema.methods.setTemperature = function (farmId, temperature) {

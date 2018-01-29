@@ -12,9 +12,7 @@ module.exports = (req, res, next) => {
     } catch (error) {
 
         // RETURN ERROR
-        return res.status(401).json({
-            message: 'Auth failed!'
-        });
+        return res.redirect('/login');
 
     }
 

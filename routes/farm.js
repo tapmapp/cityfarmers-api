@@ -119,6 +119,11 @@ router.post('/farms', checkAuth, (req, res, next) => {
 
 });
 
+// SET FAM
+router.post('/set-lighting', checkAuth, (req, res, next) => {
+
+});
+
 // SET FARM TEMPERATURE
 router.post('/set-temperature', checkAuth, (req, res, next) => {
 

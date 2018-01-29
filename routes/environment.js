@@ -8,14 +8,14 @@ var Environment = require('../models/environment');
 router.post('/save', checkAuth, (req, res, next) => {
 
     // SAVE ENVIRONMENT
-    var environment = Environment.schema.methods.save(req.body.farmerId, req.body.farm, req.body.temperature, req.body.humidity);
+    var environment = Environment.schema.methods.save(req.body.farmerId, req.body.farmId, req.body.temperature, req.body.humidity);
     environment.then(() => {
 
         // SOCKET INSTANCE
         var io = req.app.get('socketio');
         var socketFarmer = io.of('/' + req.body.farmerId);
         
-        socketFarmer.in(req.body.farm).emit('platform-environment', { room: req.body.farm, temperature: req.body.temperature, humidity: req.body.humidity });
+        socketFarmer.in(req.body.room).emit('platform-environment', { room: req.body.room, temperature: req.body.temperature, humidity: req.body.humidity });
 
         // PASSWORD MATCH
         res.status(200).json({

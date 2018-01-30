@@ -38,7 +38,7 @@ router.post('/period', checkAuth, (req, res, next) => {
     var period = Environment.schema.methods.getPeriod(req.body.farmId, req.body.fromDate, req.body.toDate);
     period.then(period => {
 
-        // PASSWORD MATCH
+        // RETURN DATE PERIOD
         res.status(200).json(period);
 
     }).catch(err => {

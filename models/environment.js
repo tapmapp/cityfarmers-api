@@ -33,8 +33,8 @@ environmentSchema.methods.getPeriod = function(farmId, fromDate, toDate) {
 
   return Environment.find({ farm: farmId }).where({ 
     date: {
-      $gte: new Date(fromDate),
-      $lt: new Date(toDate)
+      $gte: fromDate,
+      $lt: toDate
     }
   }).sort({date:-1});
 

@@ -33,8 +33,23 @@ router.post('/save', checkAuth, (req, res, next) => {
 
 });
 
-router.get('/test', checkAuth, (req, res, next) => {
-    res.send('works!');
+router.post('/period', checkAuth, (req, res, next) => {
+    
+    var period = Environment.schema.methods.getPeriod(req.body.farmId, req.body.fromDate, req.body.toDate);
+    period.then(period => {
+
+        // PASSWORD MATCH
+        res.status(200).json(period);
+
+    }).catch(err => {
+
+        // RETURN ERROR
+        res.status(400).json({
+            error: err
+        });
+
+    });
+
 });
 
 module.exports = router;

@@ -28,6 +28,7 @@ environmentSchema.methods.save = function (farmerId, farmId, temperature, humidi
 
 }
 
+// GET DATE PERIOD
 environmentSchema.methods.getPeriod = function(farmId, fromDate, toDate) {
 
   return Environment.find({ farm: farmId }).where({ 
@@ -36,7 +37,6 @@ environmentSchema.methods.getPeriod = function(farmId, fromDate, toDate) {
       $lt: new Date(toDate)
     }
   }).sort({date:-1});
-
 
 }
 

@@ -29,14 +29,21 @@ environmentSchema.methods.save = function (farmerId, farmId, temperature, humidi
 }
 
 // GET DATE PERIOD
-environmentSchema.methods.getPeriod = function(farmId, fromDate, toDate) {
+environmentSchema.methods.getPeriod = function(farmId, reqFromDate, reqToDate) {
+
+  let fromDate = new Date(reqFromDate);
+  let toDate = new Date(reqToDate);
+
+  let formatFromDate = fromDate.getFullYear() + '-' + (fromDate.getMonth() + 1) + '-' + fromDate.getDate() + ' ' + fromDate.getHours() + ':' + fromDate.getMinutes() + ':' + fromDate.getSeconds();
+  let formatToDate = toDate.getFullYear() + '-' + (toDate.getMonth() + 1) + '-' + toDate.getDate() + ' ' + toDate.getHours() + ':' + toDate.getMinutes() + ':' + toDate.getSeconds();
+
 
   return Environment.find({ farm: farmId }).where({ 
     date: {
-      $gte: fromDate,
-      $lt: toDate
+      $gte: new Date(formatFromDate),
+      $lt: new Date(formatToDate)
     }
-  }).sort({date:-1});
+  }).sort({ date:-1 });
 
 }
 

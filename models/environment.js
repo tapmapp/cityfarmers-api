@@ -43,7 +43,7 @@ environmentSchema.methods.getPeriod = function(farmId, reqFromDate, reqToDate) {
       $gte: new Date(formatFromDate),
       $lt: new Date(formatToDate)
     }
-  }).sort({ date: 1 });
+  }).sort({ date: -1 });
 
 }
 

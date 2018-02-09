@@ -37,12 +37,12 @@ environmentSchema.methods.getPeriod = function(farmId, reqFromDate, reqToDate) {
   let formatFromDate = fromDate.getFullYear() + '-' + (fromDate.getMonth() + 1) + '-' + fromDate.getDate() + ' ' + fromDate.getHours() + ':' + fromDate.getMinutes() + ':' + fromDate.getSeconds();
   let formatToDate = toDate.getFullYear() + '-' + (toDate.getMonth() + 1) + '-' + toDate.getDate() + ' ' + toDate.getHours() + ':' + toDate.getMinutes() + ':' + toDate.getSeconds();
 
-  return Environment.find({ farm: farmId }).where({ 
+  return Environment.find({ farm: farmId }).select('temperature humidity date').where({ 
     date: {
       $gte: new Date(formatFromDate),
       $lt: new Date(formatToDate)
     }
-  }).select('temperature', 'humidity', 'date').sort({ date: 1 });
+  }).sort({ date: 1 });
 
 }
 

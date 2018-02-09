@@ -13,7 +13,7 @@ var environmentSchema = new mongoose.Schema({
 
 var Environment = mongoose.model('Environment', environmentSchema);
 
-// REMOVE CAMPAIGN
+// SAVE FARM ENVIRONMENT
 environmentSchema.methods.save = function (farmerId, farmId, temperature, humidity) {
 
   var environment = new Environment({
@@ -28,7 +28,7 @@ environmentSchema.methods.save = function (farmerId, farmId, temperature, humidi
 
 }
 
-// GET DATE PERIOD
+// GET FARM ENVIRONMENT PERIOD
 environmentSchema.methods.getPeriod = function(farmId, reqFromDate, reqToDate) {
 
   let fromDate = new Date(reqFromDate);
@@ -37,13 +37,12 @@ environmentSchema.methods.getPeriod = function(farmId, reqFromDate, reqToDate) {
   let formatFromDate = fromDate.getFullYear() + '-' + (fromDate.getMonth() + 1) + '-' + fromDate.getDate() + ' ' + fromDate.getHours() + ':' + fromDate.getMinutes() + ':' + fromDate.getSeconds();
   let formatToDate = toDate.getFullYear() + '-' + (toDate.getMonth() + 1) + '-' + toDate.getDate() + ' ' + toDate.getHours() + ':' + toDate.getMinutes() + ':' + toDate.getSeconds();
 
-
   return Environment.find({ farm: farmId }).where({ 
     date: {
       $gte: new Date(formatFromDate),
       $lt: new Date(formatToDate)
     }
-  }).sort({ date: 1 });
+  }).select('temperature', 'humidity', 'date').sort({ date: 1 });
 
 }
 

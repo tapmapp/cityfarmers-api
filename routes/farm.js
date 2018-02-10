@@ -99,6 +99,26 @@ router.post('/create-farm', checkAuth, (req, res, next) => {
 
 });
 
+// GET FARM CONFIG
+router.post('/farm-config', checkAuth, (req, res, next) => {
+
+    var farmConfig = Farm.schema.methods.getFarmConfig(req.body.farmId);
+    farmConfig.then(farmConfig => {
+
+        // FARM CONFIG
+        res.status(200).json(farmConfig);
+
+    }).catch(err => {
+
+        // RETURN ERROR
+        res.status(500).json({
+            error: err
+        });
+
+    });
+
+});
+
 // GET FARMERS FARMS
 router.post('/farms', checkAuth, (req, res, next) => {
 

@@ -22,7 +22,7 @@ farmerSchema.methods.encryptPassword = function(password) {
     return bcrypt.hash(password, 10);
 }
 
-// CHECK IS PASSWORD MATCH
+// CHECK IF PASSWORD MATCH
 farmerSchema.methods.validPassword = function(password, farmerPassword) {
     return bcrypt.compare(password, farmerPassword);
 }

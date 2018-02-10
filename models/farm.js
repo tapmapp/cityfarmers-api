@@ -44,6 +44,11 @@ farmSchema.methods.getFarms = function (farmerId) {
     return Farm.find({ farmer: farmerId }).exec();
 }
 
+// GET FARM CONFIGURATION
+farmSchema.methods.getFarmConfig = function (farmId) {
+    return Farm.find({ _id: farmId }).exec();
+}
+
 // SET FARM LIGHTING
 farmSchema.methods.setLighting = function (farmId, lightingOn, lightingOff) {
     return Farm.update({ _id: farmId }, { $set: { lightingOn: lightingOn, lightingOff: lightingOff } });

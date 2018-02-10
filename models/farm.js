@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-
 var Farmer = require('./farmer');
 
 var farmSchema = new mongoose.Schema({

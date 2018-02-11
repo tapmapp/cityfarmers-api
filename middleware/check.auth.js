@@ -12,7 +12,9 @@ module.exports = (req, res, next) => {
     } catch (error) {
 
         // RETURN ERROR
-        return res.redirect('/login');
+        return res.status(404).json({
+            message: 'Token error'
+        });
 
     }
 

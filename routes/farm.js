@@ -36,7 +36,7 @@ router.post('/login', (req, res, next) => {
             });
             
             var io = req.app.get('socketio');
-            socket.initializeFarm(io, farmer._id, req.body.farm);
+            socket.initializeFarm(io, farmer._id);
 
             // PASSWORD MATCH
             res.status(200).json({
@@ -168,16 +168,14 @@ router.post('/set-temperature', checkAuth, (req, res, next) => {
 
         // SOCKET INSTANCE
         var io = req.app.get('socketio');
-        //var socketFarmer = io.of('/' + req.body.farmerId);
+        var socketFarmer = io.of('/' + req.body.farmerId);
         
-        socketFarmer.in(req.body.room).emit('farm-config-changed', { temperature: req.body.temperature });
+        socketFarmer.in(req.body.farmId).emit('farm-config-changed', { temperature: req.body.temperature });
 
         // FARMER FARMS
         res.status(201).json({
             message: 'Temperature set at ' + req.body.temperature + ' ºC'
         });
-
-
 
     }).catch(err => {
 

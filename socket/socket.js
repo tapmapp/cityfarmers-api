@@ -1,7 +1,7 @@
 var farmers = [];
 var farms = [];
 
-exports.initialize = function(io, farmerId, farms) {
+exports.initialize = function(io, farmerId) {
 
     let flag = 0;
 
@@ -22,7 +22,7 @@ exports.initialize = function(io, farmerId, farms) {
             // JOIN ROOM
             socket.on('subscribe', function(room) {
                 socket.join(room);
-                socketFarmer.in(room).emit('status', { room: room, status: 'connected'});
+                socketFarmer.in(room).emit('status', { room: room, status: 'connected' });
             });
 
             // LEAVE ROOM

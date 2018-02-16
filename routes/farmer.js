@@ -110,7 +110,7 @@ router.post('/login', (req, res, next) => {
                 });
                 
                 var io = req.app.get('socketio');
-                socket.initialize(io, farmer._id, farms);
+                socket.initialize(io, farmer._id);
 
                 // PASSWORD MATCH
                 res.status(200).json({

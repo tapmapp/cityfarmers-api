@@ -145,6 +145,12 @@ router.post('/set-lighting', checkAuth, (req, res, next) => {
     var newLighting = Farm.schema.methods.setLighting(req.body.farmId, req.body.lightingOn, req.body.lightingOff);
     newLighting.then(() => {
 
+        // SOCKET INSTANCE
+        var io = req.app.get('socketio');
+        var socketFarmer = io.of('/' + req.body.farmerId);
+        
+        socketFarmer.in(req.body.farmId).emit('farm-config-changed', {});
+
         res.status(201).json({
             message: 'New lighting configuration saved'
         })
@@ -170,7 +176,7 @@ router.post('/set-temperature', checkAuth, (req, res, next) => {
         var io = req.app.get('socketio');
         var socketFarmer = io.of('/' + req.body.farmerId);
         
-        socketFarmer.in(req.body.farmId).emit('farm-config-changed', { temperature: req.body.temperature });
+        socketFarmer.in(req.body.farmId).emit('farm-config-changed', {});
 
         // FARMER FARMS
         res.status(201).json({

@@ -149,6 +149,7 @@ router.post('/set-lighting', checkAuth, (req, res, next) => {
         var io = req.app.get('socketio');
         var socketFarmer = io.of('/' + req.body.farmerId);
         
+        // REFRESH RASP PI FARM CONFIG
         socketFarmer.in(req.body.farmId).emit('farm-config-changed', {});
 
         res.status(201).json({
@@ -176,6 +177,7 @@ router.post('/set-temperature', checkAuth, (req, res, next) => {
         var io = req.app.get('socketio');
         var socketFarmer = io.of('/' + req.body.farmerId);
         
+        // REFRESH RASP PI FARM CONFIG
         socketFarmer.in(req.body.farmId).emit('farm-config-changed', {});
 
         // FARMER FARMS
@@ -199,6 +201,13 @@ router.post('/set-watering', checkAuth, (req, res, next) => {
 
     var newWatering = Farm.schema.methods.setWatering(req.body.farmId, req.body.watering);
     newWatering.then(() => {
+
+        // SOCKET INSTANCE
+        var io = req.app.get('socketio');
+        var socketFarmer = io.of('/' + req.body.farmerId);
+        
+        // REFRESH RASP PI FARM CONFIG
+        socketFarmer.in(req.body.farmId).emit('farm-config-changed', {});
 
         // FARMER FARMS
         res.status(201).json({

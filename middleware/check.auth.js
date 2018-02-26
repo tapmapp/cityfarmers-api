@@ -9,14 +9,14 @@ module.exports = (req, res, next) => {
 
             // RETURN ERROR
             return res.status(404).json({
-                message: 'Token error'
+                message: 'Token errores'
             });
 
         } else {
 
             req.userData = decoded;
             next();
-            
+
         }   
 
     });

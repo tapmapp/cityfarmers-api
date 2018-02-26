@@ -9,7 +9,8 @@ module.exports = (req, res, next) => {
 
             // RETURN ERROR
             return res.status(404).json({
-                message: 'Token errores', 
+                err: err,
+                message: 'Token error', 
                 token: token
             });
 

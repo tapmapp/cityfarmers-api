@@ -87,7 +87,7 @@ router.post('/login', (req, res, next) => {
     var farmer = Farmer.schema.methods.find(req.body.email);
     farmer.then(farmer => {
 
-        if(farmer == null) {
+        if(farmer === null) {
             return res.status(401).json({
                 message: 'Auth failed!'
             });

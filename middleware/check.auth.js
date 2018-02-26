@@ -1,21 +1,24 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-    
-    try {
 
-        const token = req.headers.authorization.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.SECRET);
-        req.userData = decoded;
-        next();
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.SECRET, (err, decoded) => {
 
-    } catch (error) {
+        if(err) {
 
-        // RETURN ERROR
-        return res.status(404).json({
-            message: 'Token error'
-        });
+            // RETURN ERROR
+            return res.status(404).json({
+                message: 'Token error'
+            });
 
-    }
+        } else {
 
+            req.userData = decoded;
+            next();
+            
+        }   
+
+    });
+        
 };

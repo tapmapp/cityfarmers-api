@@ -29,7 +29,7 @@ farmerSchema.methods.validPassword = function(password, farmerPassword) {
 
 // FIND FARMER BY EMAIL
 farmerSchema.methods.find = function(email) {
-    return Farmer.findOne({ email: email }).exec();
+    return Farmer.findOne({ email: email }).populate('farm').exec();
 }
 
 // FIND FARMER BY ID

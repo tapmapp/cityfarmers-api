@@ -43,6 +43,11 @@ farmSchema.methods.getFarms = function (farmerId) {
     return Farm.find({ farmer: farmerId }).exec();
 }
 
+// GET ALL FARMS
+farmSchema.methods.getAllFarms = function () {
+    return Farm.find().populate('farmer').exec();
+}
+
 // GET FARM CONFIGURATION
 farmSchema.methods.getFarmConfig = function (farmId) {
     return Farm.find({ _id: farmId }).exec();

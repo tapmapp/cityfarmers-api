@@ -12,8 +12,8 @@ var farmSchema = new mongoose.Schema({
     lightingOn: { type: String, required: true, default: '08:00' },
     lightingOff: { type: String, required: true, default: '22:00' },
     harvest: { type: Number, required: true, default: 0 },
-    avgWeight: { type: Number, required: false },
-    avgProfit: { type: Number, required: false },
+    avgWeight: { type: Number, required: false, default: 0 },
+    avgProfit: { type: Number, required: false, default: 0 },
     created: { type: Date, required: true, default: Date.now },
     img: { type: String, required: false }
 });

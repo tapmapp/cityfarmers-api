@@ -49,7 +49,10 @@ farmSchema.methods.getFarms = function (farmerId) {
 
 // GET ALL FARMS
 farmSchema.methods.getAllFarms = function () {
-    return Farm.find().exec();
+    return Farm.find().populate({
+        path: 'farmer',
+        model: 'Farmer'
+    }).exec();
 }
 
 // GET FARM CONFIGURATION

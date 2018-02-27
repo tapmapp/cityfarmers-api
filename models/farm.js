@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Farmer = require('./farmer');
 
 var farmSchema = new mongoose.Schema({
-    farmer: { type: [ mongoose.Schema.ObjectId ], ref: "Farmer", required: true },
+    farmer: { type: [ mongoose.Schema.Types.ObjectId ], ref: "Farmer", required: true },
     name: { type: String, required: true },
     system: { type: String, required: true, default: 'Aeroponics' },
     city: { type: String, required: false },

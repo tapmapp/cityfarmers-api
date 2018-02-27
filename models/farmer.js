@@ -34,7 +34,10 @@ farmerSchema.methods.find = function(email) {
 
 // FIND FARMER BY ID
 farmerSchema.methods.findById = function(id) {
-    return Farmer.findOne({ _id: id }).populate('farm').exec();
+    return Farmer.findOne({ _id: id }).populate({
+        path:'farm',
+        model: 'Farm'
+    }).exec();
 }
 
 // CREATE FARMER

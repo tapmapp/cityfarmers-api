@@ -10,7 +10,7 @@ var jwt = require('jsonwebtoken');
 var Farm = require('../models/farm');
 var Farmer = require('../models/farmer');
 
-// GET FARMERS FARMS
+// GET ALL FARMS
 router.post('/', (req, res, next) => {
 
     var farms = Farm.schema.methods.getAllFarms();
@@ -30,7 +30,7 @@ router.post('/', (req, res, next) => {
 
 });
 
-// FARMER SIGN UP
+// RASPBERRY FARM LOGIN
 router.post('/login', (req, res, next) => {
 
     var farmer = Farmer.schema.methods.find(req.body.email);

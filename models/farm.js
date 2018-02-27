@@ -2,16 +2,20 @@ var mongoose = require('mongoose');
 var Farmer = require('./farmer');
 
 var farmSchema = new mongoose.Schema({
-    farmer: { type: mongoose.Schema.Types.ObjectId, ref: "Farmer", required: true },
+    farmer: { type: [ mongoose.Schema.Types.ObjectId ], ref: "Farmer", required: true },
     name: { type: String, required: true },
     system: { type: String, required: true, default: 'Aeroponics' },
-    city: { type: String },
-    country: { type: String },
+    city: { type: String, required: false },
+    country: { type: String, required: false },
     temperatureVent: { type: Number, required: true, default: 24 },
     watering: {type: Number, required: true, default: 5 },
     lightingOn: { type: String, required: true, default: '08:00' },
     lightingOff: { type: String, required: true, default: '22:00' },
-    created: { type: Date, required: true, default: Date.now }
+    harvest: { type: Number, required: true, default: 0 },
+    avgWeight: { type: Number, required: false },
+    avgProfit: { type: Number, required: false },
+    created: { type: Date, required: true, default: Date.now },
+    img: { type: String, required: false }
 });
 
 var Farm = mongoose.model('Farm', farmSchema);

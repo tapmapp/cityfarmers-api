@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
         // RETURN ALL FARMERS
         res.status(200).json(farmers);
         
-    }).cacth(err => {
+    }).catch(err => {
         
         // RETURN ERROR
         res.status(500).json({
